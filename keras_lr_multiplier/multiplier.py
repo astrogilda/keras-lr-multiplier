@@ -1,9 +1,5 @@
-from .backend import optimizers
-from .backend import backend as K
-
-
-__all__ = ['LRMultiplier']
-
+from tensorflow.keras import optimizers
+from tensorflow.keras import backend as K
 
 class LRMultiplier(optimizers.Optimizer):
 
@@ -18,7 +14,7 @@ class LRMultiplier(optimizers.Optimizer):
                             The key is the prefix of the weight to be multiplied.
         :param kwargs: Arguments for parent class.
         """
-        super(LRMultiplier, self).__init__(**kwargs)
+        super(LRMultiplier, self).__init__(self, **kwargs)
         self.optimizer = optimizers.get(optimizer)
         self.multipliers = multipliers
         if hasattr(self.optimizer, 'learning_rate'):
@@ -95,3 +91,4 @@ class LRMultiplier(optimizers.Optimizer):
     def from_config(cls, config):
         optimizer = optimizers.deserialize(config.pop('optimizer'))
         return cls(optimizer, **config)
+        
