@@ -7,22 +7,7 @@ __all__ = [
     'metrics', 'models', 'losses', 'optimizers', 'regularizers', 'TF_KERAS', 'EAGER_MODE'
 ]
 
-TF_KERAS = False
-EAGER_MODE = False
-
-if strtobool(os.environ.get('TF_KERAS', '0')):
-    import tensorflow as tf
-    from tensorflow.python import keras
-    TF_KERAS = True
-    if strtobool(os.environ.get('TF_EAGER', '0')):
-        try:
-            tf.enable_eager_execution()
-            raise AttributeError()
-        except AttributeError as e:
-            pass
-    EAGER_MODE = tf.executing_eagerly()
-else:
-    import keras
+from tensorflow import keras
 
 utils = keras.utils
 activations = keras.activations
